@@ -10,23 +10,19 @@ import (
 
 func checkLeft(currentIndex int, currentValue int8, forest [][]int8, mainLoopIndex int) int8 {
   var numberOfTrees int8
-  //fmt.Printf("In checkLeft, working on %v\n", forest[mainLoopIndex])
   for i := currentIndex - 1; i >= 0; i-- {
     isDone := false
     switch {
       case currentValue > forest[mainLoopIndex][i] :
         numberOfTrees += 1
-        fmt.Printf("LEFT: CurrentValue : %v is > %v and we are adding to NumOfTrees(%d)\n", currentValue, forest[mainLoopIndex][i], numberOfTrees)
       case currentValue <= forest[mainLoopIndex][i] :
         numberOfTrees += 1
-        fmt.Printf("LEFT: CurrentValue : %v is <= %v and we are adding to NumOfTrees(%d) and breaking the loop\n", currentValue, forest[mainLoopIndex][i], numberOfTrees)
         isDone = true
     }
     if isDone {
       break
     }
   }
-  fmt.Printf("LEFT: Total trees from forest[%v][%v] you can see = %v\n", mainLoopIndex, currentIndex, numberOfTrees)
   return numberOfTrees
 }
 
@@ -38,17 +34,14 @@ func checkRight(currentIndex int, currentValue int8, forest [][]int8, mainLoopIn
     switch {
       case currentValue > forest[mainLoopIndex][i] :
         numberOfTrees += 1
-        fmt.Printf("RIGHT: CurrentValue : %v is > %v and we are adding to NumOfTrees(%d)\n", currentValue, forest[mainLoopIndex][i], numberOfTrees)
       case currentValue <= forest[mainLoopIndex][i] :
         numberOfTrees += 1
-        fmt.Printf("RIGHT: CurrentValue : %v is <= %v and we are adding to NumOfTrees(%d) and breaking the loop\n", currentValue, forest[mainLoopIndex][i], numberOfTrees)
         isDone = true
     }
     if isDone {
       break
     }
   }
-  fmt.Printf("RIGHT: Total trees from forest[%v][%v] you can see = %v\n", mainLoopIndex, currentIndex, numberOfTrees)
   return numberOfTrees
 }
 
@@ -60,17 +53,14 @@ func checkUp(currentIndex int, currentValue int8, forest [][]int8, mainLoopIndex
     switch {
       case currentValue > forest[i][currentIndex] :
         numberOfTrees += 1
-        fmt.Printf("CHECKUP: CurrentValue : %v is > %v and we are adding to NumOfTrees (%d)\n", currentValue, forest[i][currentIndex], numberOfTrees)
       case currentValue <= forest[i][currentIndex] :
         numberOfTrees += 1
-        fmt.Printf("CHECKUP: CurrentValue : %v is <= %v and we are adding to NumOfTrees(%d) and breaking the loop\n", currentValue, forest[i][currentIndex], numberOfTrees)
         isDone = true
     }
     if isDone {
       break
     }
   }
-  fmt.Printf("UP: Total trees from forest[%v][%v] you can see = %v\n", mainLoopIndex, currentIndex, numberOfTrees)
   return numberOfTrees
 }
 
@@ -82,17 +72,14 @@ func checkDown(currentIndex int, currentValue int8, forest [][]int8, mainLoopInd
     switch {
       case currentValue > forest[i][currentIndex] :
         numberOfTrees += 1
-        fmt.Printf("CHECKDOWN: CurrentValue : %v is > %v and we are adding to NumOfTrees(%d)\n", currentValue, forest[i][currentIndex], numberOfTrees)
       case currentValue <= forest[i][currentIndex] :
         numberOfTrees += 1
-        fmt.Printf("CHECKDOWN: CurrentValue : %v is <= %v and we are adding to NumOfTrees(%d) and breaking the loop\n", currentValue, forest[i][currentIndex], numberOfTrees)
         isDone = true
     }
     if isDone {
       break
     }
   }
-  fmt.Printf("DOWN: Total trees from forest[%v][%v] you can see = %v\n", mainLoopIndex, currentIndex, numberOfTrees)
   return numberOfTrees
 }
 
@@ -120,8 +107,6 @@ func forestVisibility(forest [][]int8) int64 {
         up := checkUp(currentIndex, currentValue, forest, i)
         down := checkDown(currentIndex, currentValue, forest, i)
         total := int64(left) * int64(right) * int64(up) * int64(down)
-        fmt.Printf("Left : %v, Right: %v, Up: %v, Down: %v = total: %v\n", left, right, up, down, total)
-        fmt.Printf("For forest[%v][%v] which is %v, you can see %v trees\n\n\n", i, j, currentValue, total)
         if visibleCount < int64(total) {
           visibleCount = int64(total)
         }
